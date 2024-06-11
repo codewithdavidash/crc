@@ -1,0 +1,126 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+{% block title %}
+Welcome
+{% endblock title %}
+
+{% block hero %}
+<header
+    class="w-full h-[900px] bg-gray-950/60 bg-[url({% static 'images/scbg.jpg' %})] bg-blend-overlay mx-auto md:py-0 lg:py-0 xl:py-0 bg-cover bg-no-repeat bg-center flex items-center justify-center">
+    <div>
+        <h1 class="text-center text-white font-black text-4xl lg:text-5xl">Welcome to Covet the Redeemer <br>College.
+        </h1>
+        <p class="text-center text-white lg:text-xl mt-5 ">
+            A citadel of learning with well equipped laboratories.
+        </p>
+        <br>
+        <div class="mx-auto flex items-center justify-center space-x-5">
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'core:about' %}"
+                class="text-sm md:text-base lg:text-base xl:text-base font-semibold flex w-fit rounded bg-white px-4 py-2 text-purple-700 hover:bg-purple-600 hover:text-white sm:mx-auto md:mx-0 lg:mx-0 xl:mx-0 xl:px-5 xl:py-2">About
+                Us</a>
+            <a href="{% url 'core:academics' %}"
+                class="text-sm md:text-base lg:text-base xl:text-base font-semibold text-white hover:text-gray-400 flex items-center w-fit px-4 py-2 sm:mx-auto md:mx-0 lg:mx-0 xl:mx-0 xl:px-5 xl:py-2">Academics
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-2 mt-1">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3">
+                    </path>
+                </svg>
+            </a>
+            {% else %}
+            <a href="{% url 'core:login' %}"
+                class="text-sm md:text-base lg:text-base xl:text-base font-semibold flex w-fit rounded bg-white px-4 py-2 text-purple-700 hover:bg-purple-700 hover:text-white sm:mx-auto md:mx-0 lg:mx-0 xl:mx-0 xl:px-5 xl:py-2">Get
+                Started</a>
+            <a href="{% url 'core:signup' %}"
+                class="text-sm md:text-base lg:text-base xl:text-base font-semibold text-white hover:text-gray-400 flex items-center w-fit px-4 py-2 sm:mx-auto md:mx-0 lg:mx-0 xl:mx-0 xl:px-5 xl:py-2">Sign
+                In
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-2 mt-1">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3">
+                    </path>
+                </svg>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+{% endblock hero %}
+{% block content %}
+<div class="py-12 items-center justify-center flex">
+    <div>
+        <p class="font-black text-center tracking-wide text-xl lg:text-3xl"
+            style="font-family: Arial, Helvetica, sans-serif;">
+            ABOUT OUR SCHOOL
+        </p><br><br><br>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-40">
+            <div>
+                <p class="font-black tracking-tignt text-center" style="font-family: Arial, Helvetica, sans-serif;">
+                    OUR MISSION
+                </p><br>
+                <p class="font-italic tracking-wide">
+                    Our mission is to provide high-quality education to students of all ages and backgrounds. <br> We
+                    believe
+                    that education is the key to unlocking a brighter future, and we are committed to helping our
+                    students achieve their full potential. <br> It is an English medium school that trains student for
+                    good
+                    discipline, moral education, technical education and quality education.
+                    <br><br>
+
+                    Our team of experienced educators and staff are dedicated to creating a welcoming and inclusive
+                    learning environment, where every student can thrive. <br> Whether you're just starting your
+                    educational
+                    journey or looking to further your skills, we have a wide range of programs and courses to meet your
+                    needs. We believe that learning should be an engaging and enjoyable experience. <br> That's why we
+                    use
+                    innovative teaching methods and technology to create dynamic and interactive classrooms. <br> We are
+                    passionate about education, and we are excited to help you achieve your goals. <br> Thank you for
+                    choosing Covet the Redeemer College. We look forward to helping you succeed! <br><br>
+                </p>
+            </div>
+            <div>
+                <p class="font-black tracking-tignt text-center" style="font-family: Arial, Helvetica, sans-serif;">
+                    PRINCIPAL
+                </p>
+                <div class="flex items-center justify-between">
+                    <div></div>
+                    <div>
+                        <img src="{% static 'images/logo.jpeg' %}" alt="principal's image" class="w-40 h-40 rounded-lg">
+                    </div>
+                    <div></div>
+                </div><br><br>
+                <div class="font-italic tracking-wide">
+                    Mrs. Obilor Ugochi is the principal of Covet the Redeemer College. <br> She is passionate about
+                    education and is dedicated to providing a supportive and inclusive learning environment for
+                    all students. <br> Under her leadership, Covet the Redeemer College has become one of the top educational
+                    institutions in the region. <br>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+        <p class="font-black text-center tracking-wide text-xl lg:text-3xl"
+            style="font-family: Arial, Helvetica, sans-serif;">
+            CONTACT US
+        </p>
+        <div class="hidden lg:block">
+            <br><br>
+        </div>
+        <br>
+        <div class="lg:flex text-gray-500 lg:px-40 items-center lg:justify-between">
+            <p class="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
+                    <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
+                  </svg>                  
+                crclep74christ@yahoo.com
+            </p>
+            <p class="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
+                  </svg>                  
+                09067641120
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock content %}

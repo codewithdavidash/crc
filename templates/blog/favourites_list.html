@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+
+{% load humanize %}
+{% block title %}
+Blogs
+{% endblock title %}
+
+{% block content %}
+<div class="py-12 lg:px-40 flex items-center justify-center">
+    <div class="w-full">
+        <p class="text-center font-black text-2xl my-6">My Saved Blogs</p><br>
+        <div class="grid gap-5 lg:grid-cols-4 grid-cols-1 w-full space-y-6">
+                {% for x in new %}
+                <div class="shadow-xl border h-min border-t-md rounded-t-lg hover:shadow-2xl">
+                    <img src="{{ x.img.url }}" alt="{{ x.title }}" class="w-full rounded-t-lg">
+                    <div class="p-5 text-gray-600 h-min">
+                        <p class="mb-2 font-black text-gray-800 lg:text-2xl text-xl tracking-wide">{{ x.title }}</p>
+                        <p class="lg:text-md tracking-tight font-italic text-sm">{{ x.intro }} | <span
+                                class="text-gray-400 tracking-tight text-sm">{{ x.created_at|naturaltime }}</span></p>
+                        <div class="w-full mt-4 font-italic tracking-tight text-sm">
+                            {{ x.body|truncatewords:30 }}
+                        </div><br>
+                        <a href="{% url 'details' x.pk %}"
+                            class="border border-purple-900 text-sm p-3 rounded-lg hover:text-white hover:bg-purple-900 text-purple-900 gap-1">
+                            See More &DoubleRightArrow;
+                        </a>
+                        <br><br>
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,74 @@
+{% extends "base/base.html" %}
+
+{% load widget_tweaks %}
+{% block title %}
+Create a blog
+{% endblock title %}
+
+{% block Msg %}
+
+{% for msg in messages %}
+<div class="bg-teal-100 border-l-4 border-teal-500 text-xs tracking-tight text-teal-700 p-4" role="success">
+    <p>{{ msg }}</p>
+</div>
+{% endfor %}
+
+{% endblock Msg %}
+
+{% block content %}
+
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Create a blog here
+        </h2>
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form class="space-y-6" action="#" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form.errors or form.non_field_errors %}
+            <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+                {% for field in form %}
+                <p class="font-bold">{{ field.errors }}</p>
+                {% endfor %}
+                <p class="text-sm">{{ form.non_field_errors }}</p>
+            </div>
+            {% endif %}
+            <div>
+                <label for="image" class="block text-sm font-medium leading-6 text-gray-900">Upload a photo</label>
+                <div class="mt-2">
+                    {% render_field form.img class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %}
+                </div>
+            </div>
+            <div>
+                <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
+                <div class="mt-2">
+                    {% render_field form.title class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %}
+                </div>
+            </div>
+            <div>
+                <label for="intro" class="block text-sm font-medium leading-6 text-gray-900">Intro</label>
+                <div class="mt-2">
+                    {% render_field form.intro class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %}
+                </div>
+            </div>
+            <div>
+                <label for="body" class="block text-sm font-medium leading-6 text-gray-900">Body</label>
+                <div class="mt-2">
+                    {% render_field form.body class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %}
+                </div>
+            </div>
+            <div>
+                <button type="submit"
+                    class="flex w-full justify-center rounded-md bg-purple-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Post
+                    Blog</button>
+            </div>
+        </form>
+
+        <p class="mt-10 text-center text-sm text-gray-500">
+            <a href="{{ request.META.HTTP_REFERER }}"
+                class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Go Back</a>
+        </p>
+    </div>
+</div>
+{% endblock content %}

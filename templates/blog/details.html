@@ -1,0 +1,122 @@
+{% extends 'base/base.html' %}
+
+{% load humanize %}
+{% block title %}
+"{{ blog.title }}"
+{% endblock title %}
+
+{% block MSG %}
+
+{% for i in messages %}
+{{ i }}
+{% endfor %}
+
+{% endblock MSG %}
+
+{% block content %}
+<div class="pt-12 lg:px-40 grid grid-cols-2">
+    <a href="{{ request.META.HTTP_REFERER }}" title="Go Back">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+        </svg>
+    </a>
+    <div></div>
+</div>
+<div class="flex items-center justify-center py-6">
+    <div class="w-full">
+        <p class="lg:py-7 py-6 lg:text-3xl text-2xl text-center font-bold">{{ blog.title }}</p>
+        <div class="flex items-center justify-center lg:px-40 w-full">
+            <div>
+                <img src="{{ blog.img.url }}" alt="{{ blog.title }}"
+                    class="lg:w-[50rem] w-full rounded-t-lg lg:rounded-t-xl mb-5">
+                {% if request.user.is_authenticated %}
+                <div class="flex items-center gap-2">
+                    {% if fav %}
+                    <a href="{% url 'favourites' blog.id %}" class="text-purple-900" title="Unsave Blog">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd"
+                                d="M6 3a3 3 0 00-3 3v12a3 3 0 003 3h12a3 3 0 003-3V6a3 3 0 00-3-3H6zm1.5 1.5a.75.75 0 00-.75.75V16.5a.75.75 0 001.085.67L12 15.089l4.165 2.083a.75.75 0 001.085-.671V5.25a.75.75 0 00-.75-.75h-9z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'favourites' blog.id %}" class="" title="Save Blog">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9" />
+                        </svg>
+                    </a>
+                    {% endif %}
+
+                    {% endif %}
+
+                    {% if blog.created_by.user == request.user %}
+                    <a href="{% url 'edit' blog.pk %}" class="text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path
+                                d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
+                            <path
+                                d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
+                        </svg>
+                    </a>
+                    <a href="{% url 'delete' blog.pk %}" class="text-red-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd"
+                                d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    {% endif %}
+                </div>
+
+                <div class="lg:w-[50rem] w-full py-12 space-x-2 tracking-tight font-italic">
+                    <p>{{ blog.intro }}</p>
+                    <p>
+                        {{ blog.body }}
+                    </p>
+                    <br>
+                    <p class="text-gray-500">
+                        ---- Posted By @{{ blog.created_by.user }} at {{ blog.created_at|naturaltime }} ----
+                    </p>
+                    <div class="mt-10">
+                        <div class="bg-gray-100 p-5 h-[40rem]" id="cSection">
+                            <p class="text-center"> Comments Section</p><br>
+                            {% for x in com %}
+                            {% if x.blog == blog %}
+                            <div class="text-gray-500 font-italic tracking-tight mb-2">
+                                <div class="bg-gray-200 p-2 w-full rounded-xl">
+                                    <div class="flex items-center gap-1">
+                                        <img src="{{ x.sent_by.profile_pic.url }}" alt="{{ x.sent_by.user }}"
+                                            class="lg:h-10 h-6 w-6 lg:w-10 rounded-full border rounded-full shadow-2xl">
+                                        <p class="font-bold text-sm"> @{{ x.sent_by.user }}</p><br>
+                                    </div>
+                                    <p class="px-[1rem] mt-2 lg:px-[3rem] text-xs">---{{ x.text }} | {{ x.sent_at }}</p>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div><br>
+                        <form action="." method="post" class="flex items-center gap-1 w-full">
+                            {% csrf_token %}
+                            <p class="w-full">{{ form.text }}</p>
+                            <button type="submit" title="Send">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                    class="w-5 h-5">
+                                    <path
+                                        d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z" />
+                                </svg>
+                            </button>
+                        </form>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

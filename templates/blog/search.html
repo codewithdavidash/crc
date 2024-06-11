@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+
+{% load humanize %}
+{% block title %}
+Invest
+{% endblock title %}
+
+{% block content %}
+<div class="py-12 items-center justify-center flex">
+    <div>
+        <form action="." method="get" class="mt-5 flex items-center">
+            {% csrf_token %}
+            <input type="text" placeholder="Search @title, intro..." name="query" value="{{ query }}"
+                class="border leading-9 rounded-lg w-[18rem] ring-inset ring-1 focus:ring-inset focus:ring-2 focus:ring-teal-500 ring-teal-500">
+            <button type="submit" title="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+            </button>
+            <a href="{% url 'search' %}" class="text-red-500 hover:text-red-600" title="Clear Search">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                    <path fill-rule="evenodd"
+                        d="M7.22 3.22A.75.75 0 017.75 3h9A2.25 2.25 0 0119 5.25v9.5A2.25 2.25 0 0116.75 17h-9a.75.75 0 01-.53-.22L.97 10.53a.75.75 0 010-1.06l6.25-6.25zm3.06 4a.75.75 0 10-1.06 1.06L10.94 10l-1.72 1.72a.75.75 0 101.06 1.06L12 11.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L12 8.94l-1.72-1.72z"
+                        clip-rule="evenodd" />
+                </svg>
+            </a>
+        </form>
+        <p class="font-italic tracking-tight text-lg">Search: {% if query %}"{{ query }}"{% endif %}</p><br>
+    </div>
+</div>
+<div class="lg:px-40 flex items-center justify-center">
+    <div class="w-full">
+        <div class="grid gap-5 lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 xs:grid-cols-1 md:grid-cols-3 w-full">
+            {% for x in blog %}
+            <div class="shadow-xl border h-min border-t-md rounded-t-lg hover:shadow-2xl">
+                <img src="{{ x.img.url }}" alt="{{ x.title }}" class="w-full rounded-t-lg">
+                <div class="p-5 text-gray-600 h-min">
+                    <p class="mb-2 font-black text-gray-800 lg:text-2xl text-xl tracking-wide">{{ x.title }}</p>
+                    <p class="lg:text-md tracking-tight font-italic text-sm">{{ x.intro }} | <span
+                            class="text-gray-400 tracking-tight text-sm">{{ x.created_at|naturaltime }}</span></p>
+                    <div class="w-full mt-4 font-italic tracking-tight text-sm">
+                        {{ x.body|truncatewords:30 }}
+                    </div><br>
+                    <div class="flex justify-between items-center">
+                        <a href="{% url 'details' x.pk %}"
+                            class="border border-purple-900 text-sm p-3 rounded-lg hover:text-white hover:bg-purple-900 text-purple-900 gap-1">
+                            See More &DoubleRightArrow;
+                        </a>
+                    </div>
+                    <br><br>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

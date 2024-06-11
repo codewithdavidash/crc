@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+
+{% load widget_tweaks %}
+{% block title %}
+Create An Account
+{% endblock title %}
+
+{% block content %}
+<div class="w-full h-screen bg-white flex flex-col items-center justify-center">
+    <div class="w-full mx-auto md:max-w-md space-y-4 rounded-xl border bg-white px-10 py-12 text-black shadow-lg">
+        <h2 class="text-center text-2xl">Create an account</h2>
+        <!-- Form -->
+        <form action="" class="mx-auto space-y-4" method="post">
+            {% csrf_token %}
+
+            {% if form.errors or form.non_field_errors %}
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+                {% for field in form %}
+                <p class="font-bold">{{ field.errors }}</p>
+                {% endfor %}
+                <p>{{ form.non_field_errors }}</p>
+            </div>
+            {% endif %}
+
+            <!-- input -->
+            <div class="space-y-2">
+                <label for="email" class="block text-sm font-medium">First Name</label>
+                {% render_field form.first_name class="block w-full rounded-xl border px-2 py-2" %}
+                <label for="password" class="block text-sm font-medium">Last Name</label>
+                {% render_field form.last_name class="block w-full rounded-xl border px-2 py-2" %}
+                <label for="email" class="block text-sm font-medium">Username</label>
+                {% render_field form.username class="block w-full rounded-xl border px-2 py-2" %}
+                <label for="password" class="block text-sm font-medium">Email Address</label>
+                {% render_field form.email class="block w-full rounded-xl border px-2 py-2" %}
+                <label for="email" class="block text-sm font-medium">Password</label>
+                {% render_field form.password1 class="block w-full rounded-xl border px-2 py-2" %}
+                <label for="password" class="block text-sm font-medium">Confirm Password</label>
+                {% render_field form.password2 class="block w-full rounded-xl border px-2 py-2" %}
+            </div>
+            <!-- button -->
+            <div class="space-y-4">
+                <button type="submit"
+                    class="w-full rounded-xl bg-purple-700 hover:bg-purple-600 font-semibold px-4 py-2 text-white">
+                    Sign in
+                </button>
+                <p class="text-center text-sm font-medium">
+                    Dont have an account?
+                    <a href="{% url 'core:login' %}" class="text-sm font-medium text-purple-600">Log In</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
